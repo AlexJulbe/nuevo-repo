@@ -31,13 +31,17 @@ for vdc in vdcs:
         mensaje2 = '*****' * 2
         mensaje3 = '*****' * 3
         print
-        print (mensaje + "VAPP Name: " + vapp.name)
+        print (mensaje + " VAPP Name: " + vapp.name)
         print
        
         for vm in vms:
             code, disks = collection(vm, 'harddisks', 'harddisks')
             check_response(200, code, disks)
-            print (mensaje2 + "VM Name: " + vm.name)
+            code, nics = collection(vm, 'nics', 'nics')
+            check_response(200, code, nics)
+            print (mensaje2 + " VM Name: " + vm.name)
 
+            for nic in nics:
+                print mensaje3, "NIC ID", nic.id
             for disk in disks:
-                print (mensaje3 + "UUID DISK: " + disk.uuid) 
+                print (mensaje3 + " UUID DISK: " + disk.uuid) 
