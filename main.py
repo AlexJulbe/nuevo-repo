@@ -11,7 +11,6 @@ code, vdcs = api.cloud.virtualdatacenters.get(headers={
 })
 check_response(200, code, vdcs)
 """print ("Response code vdcs: %s" % code)"""
-print ("Response code vdcs: %s" % code)
 
 for vdc in vdcs:
     code, vapps = vdc.follow('virtualappliances').get(headers={
@@ -19,12 +18,13 @@ for vdc in vdcs:
     })
     check_response(200, code, vapps)
     print vdc.name
-    
     for vapp in vapps:
         code, vms = vapp.follow('virtualmachines').get(headers={
         'accept' : 'application/vnd.abiquo.virtualmachines+json'
         })
         check_response(200, code, vms)
-        print vapp.name
+        mensaje = '*****'
+        mensaje2 = '*****' * 2
+        print (mensaje + vapp.name)
         for vm in vms:
-            print vm.name
+            print (mensaje2 + vm.name)
