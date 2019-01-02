@@ -17,7 +17,9 @@ for vdc in vdcs:
         'accept' : 'application/vnd.abiquo.virtualappliances+json'
     })
     check_response(200, code, vapps)
+    print
     print vdc.name
+    
     for vapp in vapps:
         code, vms = vapp.follow('virtualmachines').get(headers={
         'accept' : 'application/vnd.abiquo.virtualmachines+json'
@@ -25,6 +27,9 @@ for vdc in vdcs:
         check_response(200, code, vms)
         mensaje = '*****'
         mensaje2 = '*****' * 2
+        print
         print (mensaje + vapp.name)
+        print
+       
         for vm in vms:
             print (mensaje2 + vm.name)
