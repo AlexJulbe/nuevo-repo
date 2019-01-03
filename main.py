@@ -40,9 +40,41 @@ for vdc in vdcs:
             code, nics = collection(vm, 'nics', 'nics')
             check_response(200, code, nics)
             for nic in nics:
-                print mensaje3, "NIC ID", nic.id
+                print mensaje3, "NIC: ", nic.mac
 
             code, disks = collection(vm, 'harddisks', 'harddisks')
             check_response(200, code, disks)
             for disk in disks:
                 print (mensaje3 + " UUID DISK: " + disk.uuid) 
+
+code2, dcs = api.admin.datacenters.get(headers={
+    'accept':'application/vnd.abiquo.datacenters+json'
+})
+check_response(200, code, dcs)
+print ("Response code dcs: %s" % code2)
+
+for dc in dcs:
+    code2, dsts = collection(dc, 'datastoretiers', 'datastoretiers')
+    check_response(200, code, dsts)
+    code2, racks = collection(dc, 'racks', 'racks')
+    check_response(200, code, racks)
+    print
+    print ("Datacenter: " + dc.name)
+
+    for rack in racks:
+        code2, hypers = collection(rack, 'machines', 'machines')
+        check_response(200, code, hypers)
+        print
+        print ("Rack: " + rack.name)
+
+        for hyper in hypers:
+            print ("Hypervisor: " + hyper.name)
+
+    for dst in dsts:
+        code2, dss = collection(dst, 'datastores', 'datastores')
+        check_response(200, code, dss)
+        print
+        print ("Datastore Tier: " + dst.name) 
+
+        for ds in dss:
+            print ("Datastore: " + ds.name)
