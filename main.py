@@ -35,13 +35,14 @@ for vdc in vdcs:
         print
        
         for vm in vms:
-            code, disks = collection(vm, 'harddisks', 'harddisks')
-            check_response(200, code, disks)
+            print (mensaje2 + " VM Name: " + vm.name + " State VM: " + vm.state)
+
             code, nics = collection(vm, 'nics', 'nics')
             check_response(200, code, nics)
-            print (mensaje2 + " VM Name: " + vm.name)
-
             for nic in nics:
                 print mensaje3, "NIC ID", nic.id
+
+            code, disks = collection(vm, 'harddisks', 'harddisks')
+            check_response(200, code, disks)
             for disk in disks:
                 print (mensaje3 + " UUID DISK: " + disk.uuid) 
