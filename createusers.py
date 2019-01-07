@@ -4,6 +4,7 @@ import json
 
 from abiquo.client import Abiquo
 from abiquo.client import check_response
+from sys import argv 
 
 import urllib3
 urllib3.disable_warnings()
@@ -29,6 +30,8 @@ for r in roles:
 if role == None:
     print 'Role not found'
 
+nick = raw_input("Ingresa nick de usuario: ")
+
 # 'href': role._extract_link('edit')['href']
 # 'href': role.follow('edit').url
 for e in enterprises:
@@ -37,7 +40,7 @@ for e in enterprises:
         data=json.dumps({
             'name'     : 'New user1',
             'password' : '12qwaszx',
-            'nick'     : 'myuser10',
+            'nick'     :  nick,
             'surname'  : 'myuser',
             'email'    : 'm@m.com',
             'locale'   : 'es',
